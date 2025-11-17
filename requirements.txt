@@ -1,0 +1,31 @@
+# Core
+tensorflow==2.15.0
+numpy
+pandas
+tqdm
+matplotlib
+
+# Image processing
+Pillow
+opencv-python
+
+# Text processing
+sentencepiece
+protobuf
+regex
+
+# Model utilities
+scikit-learn
+h5py
+
+# For data pipeline
+imgaug
+tensorflow-addons
+
+# Optional (if you are using notebooks)
+jupyter
+notebook
+
+# REST API (optional)
+flask
+flask-cors
