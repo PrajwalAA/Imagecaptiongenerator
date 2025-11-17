@@ -1,6 +1,6 @@
 # Image Caption Generator
 
-A clean, production-ready implementation of an **Image Caption Generator**: a deep-learning system that takes an input image and produces a natural-language description. This project provides training and inference code, pre-processing utilities, evaluation scripts, and an optional REST API for integration.
+A clean, production-ready implementation of an **Image Caption Generator**: a deep-learning system that takes an input image and produces a natural-language description. This project provides training and inference code, pre-processing utilities, evaluation scripts, and an optional  for integration.
 
 ---
 
@@ -15,7 +15,7 @@ A clean, production-ready implementation of an **Image Caption Generator**: a de
 * [Quick start — Inference](#quick-start--inference)
 * [Training](#training)
 * [Evaluation](#evaluation)
-* [REST API (optional)](#rest-api-optional)
+* [ (optional)](#rest-api-optional)
 * [Project structure](#project-structure)
 * [Tips & best practices](#tips--best-practices)
 * [Contributing](#contributing)
@@ -37,7 +37,7 @@ This repository implements an end-to-end Image Captioning pipeline: from dataset
 * Training loop with checkpointing and learning-rate scheduling
 * Inference script for single images and batch predictions
 * Evaluation scripts (BLEU, CIDEr, METEOR — pluggable)
-* Optional lightweight REST API for serving the model
+* Optional lightweight  for serving the model
 * Config-driven setup (YAML/JSON) so experiments are reproducible
 
 ## Tech stack
@@ -116,51 +116,6 @@ Output caption: "A group of people standing around a wooden table with food on i
 
 The script also supports beam search (set `--beam_size 3`) and batch inference using a directory input.
 
-## Training
-
-A typical training command:
-
-```bash
-python train.py \
-  --config configs/train_resnet50_lstm.yaml \
-  --dataset_root /path/to/coco \
-  --output_dir outputs/exp1
-```
-
-Important training options (config YAML):
-
-* `backbone`: resnet50 | efficientnet_b0 | vit
-* `decoder`: lstm | transformer
-* `batch_size`, `learning_rate`, `max_epochs`
-* `min_freq` (vocabulary threshold)
-* `scheduled_sampling` (boolean)
-
-Model checkpoints and logs are saved to `output_dir`. Use tensorboard if enabled to monitor loss, BLEU, and other metrics.
-
-## Evaluation
-
-Evaluate saved models using provided evaluation scripts:
-
-```bash
-python evaluate.py --checkpoint outputs/exp1/best.pth --dataset_root /path/to/coco --split val
-```
-
-Supported metrics: BLEU-1/2/3/4, CIDEr, METEOR (if dependencies installed). The evaluator loads ground-truth captions and computes scores in a COCO-compatible way.
-
-## REST API (optional)
-
-A minimal FastAPI server is provided in `app/` for single-image captioning. Example usage:
-
-```bash
-uvicorn app.server:app --reload --port 8000
-```
-
-Endpoint:
-
-* `POST /caption` — accepts multipart/form-data with field `file`; returns JSON: `{ "caption": "..." }`.
-
-This endpoint loads the model once at startup, so it is suitable for light production loads. For heavy throughput, wrap the model with a queue or use a dedicated inference server.
-
 ## Project structure
 
 ```
@@ -201,4 +156,3 @@ This project is released under the MIT License. See `LICENSE` for details.
 ---
 
 *Last updated: 2025-11-17*
-
